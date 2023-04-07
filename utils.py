@@ -1,6 +1,6 @@
 import re
 
-is_over_regex = re.compile('0')
+__is_game_over_regex = re.compile('0')
 def validate_grid(user_input: str) -> bool:
     if len(user_input) != 42:
         return False
@@ -20,7 +20,7 @@ def conversion_grid(user_input: str) -> list[str]:
 
 def is_game_over(arr) -> bool:
     for i in range(len(arr)):
-        if(is_over_regex.match(arr[i])): return False
+        if(__is_game_over_regex.match(arr[i])): return False
     return True
 
 if __name__ == '__main__':
