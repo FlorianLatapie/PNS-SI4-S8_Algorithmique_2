@@ -11,3 +11,4 @@
 - [Documentation pour implémentation (depuis le sujet du projet)](https://pobot.org/Le-logiciel.html)
 - [Implémentation en Python (depuis la source précédente)](https://gitlab.com/cyberp4/cp4-ai)
 - [A Knowledge-based Approach of Connect-Four par Victor Allis](http://www.informatik.uni-trier.de/~fernau/DSL0607/Masterthesis-Viergewinnt.pdf)
+- [Our implementation of minimax algorithm for Connect Four in JavaScript](./minMaxAi.js)
