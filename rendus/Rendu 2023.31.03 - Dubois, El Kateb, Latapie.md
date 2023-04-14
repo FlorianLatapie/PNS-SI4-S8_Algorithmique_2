@@ -5,7 +5,7 @@ output:
 ---
 # Algorithmique 2 : Puissance 4
 
-- Quentin Dubois 
+- Quentin Dubois
 - Sami El Kateb
 - Florian Latapie
 
@@ -15,20 +15,20 @@ output:
 
 ### Recherche des différentes approches possibles
 
-* score de l’ennemi augmente de manière exponentielle
-* score de l’ennemi calculé de manière linéaire
+- score de l’ennemi augmente de manière exponentielle
+- score de l’ennemi calculé de manière linéaire
 
 ### Prise en compte
 
-* Prendre en compte les pions qui peuvent menait à des puissances 4, c’est à dires les combinaisons suivantes
+- Prendre en compte les pions qui peuvent menait à des puissances 4, c’est à dires les combinaisons suivantes
 
 ### Représentation de la grille
 
 Pour le moment, nous comptons partir sur une matrice contenant des entiers
 
-* 0 : représentant l’absence de pions
-* 1 : joueur 1 : humain
-* 2 : joueur 2 : machine
+- 0 : représentant l’absence de pions
+- 1 : joueur 1 : humain
+- 2 : joueur 2 : machine
 
 Ci-dessous est présentée la variable *possibleWinningMovesOnALine* contient un tableau de tableaux de coups possiblement gagnants, tableau 1 contient les combinaisons à 1 pion, le tableau 2 contient les combinaisons à 2 pions et ainsi de suite.
 
@@ -93,11 +93,11 @@ Nous n'avons donc pas de crainte par rapport à l’explosion de notre fonction 
 
 Nous posons les variables suivantes :
 
-* $w$ = 7 (largeur de la grille)
-* $h$ = 6 (hauteur de la grille)
-* $p$ = 4 (nombre de pion pour gagner)
-* $m$ = 15 (nombre de motifs qu’on recherche dans la grille)
-* $r$ = 3 (nombre de rotation)
+- $w$ = 7 (largeur de la grille)
+- $h$ = 6 (hauteur de la grille)
+- $p$ = 4 (nombre de pion pour gagner)
+- $m$ = 15 (nombre de motifs qu’on recherche dans la grille)
+- $r$ = 3 (nombre de rotation)
 
 Notre fonction d’évaluation coûte :
 
