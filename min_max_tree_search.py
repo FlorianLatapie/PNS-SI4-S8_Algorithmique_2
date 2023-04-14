@@ -3,15 +3,11 @@ from random import randint
 
 from utils import *
 
-WIN_GAME_POINTS = math.inf
-LOSE_GAME_POINTS = -math.inf
+from constants import MACHIN_PLAYER_REPRESENTATION, HUMAN_PLAYER_REPRESENTATION, HEIGHT, EMPTY_CELL_REPRESENTATION, \
+    WIDTH
+from evaluate import evaluate_logic
+from utils import replace_str_index, is_game_over
 
-WIDTH = 7
-HEIGHT = 6
-
-EMPTY_CELL_REPRESENTATION = '0'
-HUMAN_PLAYER_REPRESENTATION = '1'
-MACHIN_PLAYER_REPRESENTATION = '2'
 
 # Return the column where the player can play beginning at one
 def play_move(board):
@@ -74,6 +70,7 @@ def min_max(board, depth, is_maximizing_player, alpha, beta):
                     break
             return best_score
 
+
 def possible_moves(board):
     # return list of possible moves of the forme (column, row) or (x, y)
     # print("Board: " + str(board))
@@ -100,17 +97,10 @@ def possible_moves(board):
                 break
     return moves
 
+
 def array_copy(array):
     return [row for row in array]
 
+
 def evaluate(board):
-    return randint(-100, 100)
-
-
-# if __name__=="__main__":
-#     a = ["abdgfgz", "ejfzebf"]
-#     b = array_copy(a)
-#     a[0] = replace_str_index(a[0], 1, "E")
-#     print(a)
-#     print(b)
-
+    return evaluate_logic(board)

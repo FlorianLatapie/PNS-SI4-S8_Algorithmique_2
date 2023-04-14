@@ -1,12 +1,10 @@
 import argparse
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
-from utils import *
-from minMaxAlgo import play_move
+from min_max_tree_search import play_move
 import json
 
-COLUMNS_COUNT = 7
-ROWS_COUNT = 6
+from utils import convert_string_to_grid
 
 
 class RequestProcessingError(Exception):

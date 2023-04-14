@@ -1,14 +1,28 @@
 import re
-NUM_ROWS=6
-NUM_COLUMNS=7
+
+NUM_ROWS = 6
+NUM_COLUMNS = 7
+
+
+def board_pretty_print(board: list, message: str = ''):
+    print(message)
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            print(board[i][j], end='')
+        print()
+    print()
+
 
 __is_game_over_regex = re.compile('0')
+
+
 def validate_grid(user_input: str) -> bool:
     if len(user_input) != 42:
         return False
     if (user_input.count('h') - user_input.count('m')) != 1:
         return False
     return True
+
 
 def convert_string_to_grid(user_input: str) -> list[str]:
     parsed_input = user_input.replace("m", "2").replace("h", "1")
@@ -20,6 +34,7 @@ def convert_string_to_grid(user_input: str) -> list[str]:
             grid[x] = grid[x] + curr
     return grid
 
+
 def convert_grid_to_string(grid: list[str]) -> str:
     grid_string = ""
     for y in range(0, NUM_COLUMNS, 1):
@@ -30,16 +45,19 @@ def convert_grid_to_string(grid: list[str]) -> str:
 
 def is_game_over(arr) -> bool:
     for i in range(len(arr)):
-        if(__is_game_over_regex.match(arr[i])): return False
+        if __is_game_over_regex.match(arr[i]):
+            return False
     return True
 
-def replace_str_index(text,index = 0, replacement=''):
+
+def replace_str_index(text, index=0, replacement=''):
     return text[:index] + replacement + text[index + 1:]
+
 
 def add_move_to_grid(grid: str, move: int, player_symbol: str) -> str:
     grid_array = convert_string_to_grid(grid)
     for i in range(NUM_ROWS):
-        if(grid_array[i][move] == "0"): 
+        if grid_array[i][move] == "0":
             grid_array[i] = replace_str_index(grid_array[i], move, player_symbol)
             return convert_grid_to_string(grid_array)
     raise Exception("Move not valid")

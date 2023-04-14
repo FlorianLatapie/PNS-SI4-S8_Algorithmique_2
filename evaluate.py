@@ -1,6 +1,4 @@
-from util import *
-
-def evaluate(board: list):
+def evaluate_logic(board: list):
     board90 = rotate_90(board)
     board45 = rotate45(board)
     board_minus_45 = rotate_minus_45(board)
@@ -29,14 +27,14 @@ def evaluate(board: list):
 
 def find_winning_moves_on_a_line(line_of_connect4: str):
     known_winning_moves_human1 = [
-        ["1___", "_1__", "__1_", "___1"],
-        ["11__", "_11_", "__11", "1_1_", "_1_1", "1__1"],
-        ["_111", "1_11", "11_1", "111_"],
+        ["1000", "0100", "0010", "0001"],
+        ["1100", "0110", "0011", "1010", "0101", "1001"],
+        ["0111", "1011", "1101", "1110"],
     ]
     known_winning_moves_machine2 = [
-        ["2___", "_2__", "__2_", "___2"],
-        ["22__", "_22_", "__22", "2_2_", "_2_2", "2__2"],
-        ["_222", "2_22", "22_2", "222_"],
+        ["2000", "0200", "0020", "0002"],
+        ["2200", "0220", "0022", "2020", "0202", "2002"],
+        ["0222", "2022", "2202", "2220"],
     ]
 
     score = 0
@@ -89,7 +87,7 @@ def rotate_minus_45(board: list):
         for j in range(len(board[i])):
             index = i - j + offset
             if len(out) <= index:
-                for k in range(len(out), index + 1):
+                for _ in range(len(out), index + 1):
                     out.append([])
             out[index].append(board[i][j])
     return out
