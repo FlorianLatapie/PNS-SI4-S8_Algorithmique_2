@@ -1,4 +1,5 @@
 import re
+import evaluate
 
 NUM_ROWS = 6
 NUM_COLUMNS = 7
@@ -43,7 +44,7 @@ def convert_grid_to_string(grid: list[str]) -> str:
     return grid_string
 
 
-def is_game_over(arr) -> bool:
+def is_game_over(arr: str) -> bool:
     for i in range(len(arr)):
         if __is_game_over_regex.match(arr[i]):
             return False
@@ -62,14 +63,62 @@ def add_move_to_grid(grid: str, move: int, player_symbol: str) -> str:
             return convert_grid_to_string(grid_array)
     raise Exception("Move not valid")
 
+def has_player_won(grid_str: str, player_symbol: str):
+    grid = convert_string_to_grid(grid_str)
+    board45 = evaluate.rotate45(grid)
+    board90 = evaluate.rotate_90(grid)
+    board_minus_45 = evaluate.rotate_minus_45(grid)
+    boards = [
+        grid,
+        board45,
+        board90,
+        board_minus_45
+    ]
+    for board in boards:
+        for j in range(len(board)):
+            board_line = "".join(board[j])
+            if board_line.find(player_symbol*4) != -1: return True
+    return False
 
+
+
+# def has_won(line_of_connect4: str):
+#     known_winning_moves_human1 = [
+#         ["1000", "0100", "0010", "0001"],
+#         ["1100", "0110", "0011", "1010", "0101", "1001"],
+#         ["0111", "1011", "1101", "1110"],
+#     ]
+#     known_winning_moves_machine2 = [
+#         ["2000", "0200", "0020", "0002"],
+#         ["2200", "0220", "0022", "2020", "0202", "2002"],
+#         ["0222", "2022", "2202", "2220"],
+#     ]
+#     score = 0
+#     for i in range(len(known_winning_moves_human1)):
+#         for j in range(len(known_winning_moves_human1[i])):
+#             index = line_of_connect4.find(known_winning_moves_human1[i][j])
+#             if line_of_connect4.find("1111") != -1:
+#                 score -= 100000
+#             if index != -1:
+#                 score -= 1 ** (i + 1)
+#     for i in range(len(known_winning_moves_machine2)):
+#         for j in range(len(known_winning_moves_machine2[i])):
+#             index = line_of_connect4.find(known_winning_moves_machine2[i][j])
+#             if line_of_connect4.find("2222") != -1:
+#                 score += 100
+#             if index != -1:
+#                 score += 1 * (i + 1)
+#     return score
+#
+#
+#
 if __name__ == '__main__':
     example1 = "m00000h00000mm0000hmh000h00000h00000000000"
     example2 = "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
-    res = convert_string_to_grid(example1)
-    print(res)
-    print(res)
-    res = add_move_to_grid(example1, 6, "2")
-    res = convert_string_to_grid(res)
-    print(res)
-    is_over = is_game_over(res)
+    # res = convert_string_to_grid(example1)
+    # print(res)
+    # print(res)
+    # res = add_move_to_grid(example1, 6, "2")
+    # res = convert_string_to_grid(res)
+    # print(res)
+    is_over = is_game_over(example1)
