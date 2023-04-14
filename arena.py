@@ -62,6 +62,7 @@ def play_game():
         has_won = utils.has_player_won(grid, "2")
         if has_won:
             add_stat("1", str(i))
+            return
         is_over = utils.is_game_over(grid)
         if is_over: 
             add_stat("draw", str(i))
@@ -73,6 +74,7 @@ def play_game():
         has_won = utils.has_player_won(grid, "2")
         if has_won:
             add_stat("2", str(i))
+            return
         is_over = utils.is_game_over(grid)
         if is_over: 
             add_stat("draw", str(i))
