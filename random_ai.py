@@ -9,11 +9,11 @@ def is_column_available(input: str) -> bool:
     return False
 
 
-def random_ai_play(input_grid_str: str) -> int:
+def random_ai_play(input_grid_str: list[str]) -> int:
     random_start = random.randrange(0, 6, 1)
     for i in range(0, 6):
         column = ((random_start + i) % 7)
-        if is_column_available(input_grid_str[column]): return column
+        if is_column_available(input_grid_str[column]): return column + 1
     return -1
 
 
