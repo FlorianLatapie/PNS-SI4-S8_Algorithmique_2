@@ -1,6 +1,4 @@
-from util import *
-
-def evaluate(board: list):
+def evaluate_logic(board: list):
     board90 = rotate_90(board)
     board45 = rotate45(board)
     board_minus_45 = rotate_minus_45(board)

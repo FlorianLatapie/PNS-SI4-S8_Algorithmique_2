@@ -2,16 +2,8 @@ import math
 from random import randint
 
 from utils import *
-
-WIN_GAME_POINTS = math.inf
-LOSE_GAME_POINTS = -math.inf
-
-WIDTH = 7
-HEIGHT = 6
-
-EMPTY_CELL_REPRESENTATION = '0'
-HUMAN_PLAYER_REPRESENTATION = '1'
-MACHIN_PLAYER_REPRESENTATION = '2'
+from evaluate import evaluate_logic
+from constants import *
 
 # Return the column where the player can play beginning at one
 def play_move(board):
@@ -109,7 +101,7 @@ def array_copy(array):
     return [row for row in array]
 
 def evaluate(board):
-    return randint(-100, 100)
+    return evaluate_logic(board)
 
 
 # if __name__=="__main__":
