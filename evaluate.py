@@ -12,15 +12,15 @@ def evaluate_logic(board: list):
 
     score = 0
 
-    for j in range(len(board90)):
-        line = "".join(board90[j])
+    for board_line in board90:
+        line = "".join(board_line)
         score += find_winning_moves_on_a_line(line)
 
-    for i in range(len(boards)):
-        board = boards[i]
-        for j in range(len(board)):
-            line = "".join(board[j])
-            score += find_winning_moves_on_a_line(line) * (len(board) - j)
+    for board in boards:
+        board_length = len(board)
+        for line_index, line in enumerate(board):
+            line = "".join(line)
+            score += find_winning_moves_on_a_line(line) * (board_length - line_index)
 
     return score
 
@@ -39,55 +39,47 @@ def find_winning_moves_on_a_line(line_of_connect4: str):
 
     score = 0
 
-    for i in range(len(known_winning_moves_human1)):
-        for j in range(len(known_winning_moves_human1[i])):
-            index = line_of_connect4.find(known_winning_moves_human1[i][j])
+    for move_class_index, move_class in enumerate(known_winning_moves_human1):
+        for move in move_class:
             if line_of_connect4.find("1111") != -1:
                 score -= 100000
+            index = line_of_connect4.find(move)
             if index != -1:
-                score -= 1 ** (i + 1)
+                score -= 1 ** (move_class_index + 1)
 
-    for i in range(len(known_winning_moves_machine2)):
-        for j in range(len(known_winning_moves_machine2[i])):
-            index = line_of_connect4.find(known_winning_moves_machine2[i][j])
+    for move_class_index, move_class in enumerate(known_winning_moves_machine2):
+        for move in move_class:
             if line_of_connect4.find("2222") != -1:
                 score += 100
+            index = line_of_connect4.find(move)
             if index != -1:
-                score += 1 * (i + 1)
+                score += 1 * (move_class_index + 1)
 
     return score
 
 
 def rotate_90(board: list):
-    out = []
-    for i in range(len(board)):
-        for j in range(len(board[i])):
-            # if out[j] does not exist, create it :
-            if len(out) <= j:
-                out.append([])
-
-            out[j].append(board[i][j])
-    return out
+    return list(zip(*board[::-1]))
 
 
 def rotate45(board: list):
     out = []
-    for i in range(len(board)):
-        for j in range(len(board[i])):
-            if len(out) <= i + j:
+    for board_line in board:
+        for index, cell in enumerate(board_line):
+            if len(out) <= index:
                 out.append([])
-            out[i + j].append(board[i][j])
+            out[index].append(cell)
     return out
 
 
 def rotate_minus_45(board: list):
     out = []
     offset = 6
-    for i in range(len(board)):
-        for j in range(len(board[i])):
-            index = i - j + offset
+    for board_line_index, board_line in enumerate(board):
+        for index, cell in enumerate(board_line):
+            index = board_line_index - index + offset
             if len(out) <= index:
                 for _ in range(len(out), index + 1):
                     out.append([])
-            out[index].append(board[i][j])
+            out[index].append(cell)
     return out
