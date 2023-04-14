@@ -6,6 +6,9 @@ __PLAYER1_URL = ""
 __PLAYER2_URL = ""
 
 
+def toggle_grid(grid: str):
+    return grid.replace("1", "a").replace("2", "1").replace("a", "2")
+
 def player_plays(player_num: int, grid: str) -> str:
     url = __PLAYER1_URL
     if player_num == 2: url = __PLAYER2_URL
@@ -44,13 +47,13 @@ def main():
         return
     i = 0
     while True:
-        player_number = i % 2 + 1
-
-        grid = player_plays(player_number, grid)
+        grid = toggle_grid(grid)
+        grid = player_plays(2, grid)
         is_over = utils.is_game_over(grid)
         if is_over: return
 
-        grid = player_plays(i, grid)
+        grid = toggle_grid(grid)
+        grid = player_plays(2, grid)
         is_over = utils.is_game_over(grid)
         if is_over: return
 
