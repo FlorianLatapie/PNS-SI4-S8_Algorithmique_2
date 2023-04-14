@@ -1,9 +1,10 @@
 import math
-from random import randint
 
-from utils import *
+from constants import MACHIN_PLAYER_REPRESENTATION, HUMAN_PLAYER_REPRESENTATION, HEIGHT, EMPTY_CELL_REPRESENTATION, \
+    WIDTH
 from evaluate import evaluate_logic
-from constants import *
+from utils import replace_str_index, is_game_over
+
 
 # Return the column where the player can play beginning at one
 def play_move(board):
@@ -72,42 +73,36 @@ def min_max(board, depth, is_maximizing_player, alpha, beta):
             print("best_score ", best_score)
             return best_score
 
+
 def possible_moves(board):
     # return list of possible moves of the forme (column, row) or (x, y)
     moves = []
     middle = 3
 
-    for row in range(HEIGHT-1, -1, -1):
+    for row in range(HEIGHT - 1, -1, -1):
         if board[row][middle] == EMPTY_CELL_REPRESENTATION:
             moves.append((middle, row))
             break
 
-    for i in range(1, WIDTH//2 + 1):
+    for i in range(1, WIDTH // 2 + 1):
         left = middle - i
         right = middle + i
 
-        for row in range(HEIGHT-1, -1, -1):
+        for row in range(HEIGHT - 1, -1, -1):
             if board[row][left] == EMPTY_CELL_REPRESENTATION:
                 moves.append((left, row))
                 break
 
-        for row in range(HEIGHT-1, -1, -1):
+        for row in range(HEIGHT - 1, -1, -1):
             if board[row][right] == EMPTY_CELL_REPRESENTATION:
                 moves.append((right, row))
                 break
     return moves
 
+
 def array_copy(array):
     return [row for row in array]
 
+
 def evaluate(board):
     return evaluate_logic(board)
-
-
-# if __name__=="__main__":
-#     a = ["abdgfgz", "ejfzebf"]
-#     b = array_copy(a)
-#     a[0] = replace_str_index(a[0], 1, "E")
-#     print(a)
-#     print(b)
-
