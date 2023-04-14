@@ -10,8 +10,7 @@ from utils import replace_str_index, is_game_over
 
 
 # Return the column where the player can play beginning at one
-def play_move(board):
-    depth = 3
+def play_move(board, depth):
     position_to_play = min_max_init(board, depth)
     # Because column start to 1 and not 0 in the API
     return position_to_play[0] + 1
@@ -38,6 +37,7 @@ def min_max_init(board, depth):
             break
 
     # print("Best score: " + str(best_score) + " Best move: " + str(best_move))
+    print("Best move: " + str(best_move))
     return best_move
 
 

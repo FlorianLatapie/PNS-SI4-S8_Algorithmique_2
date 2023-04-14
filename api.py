@@ -8,6 +8,7 @@ from random_ai import random_ai_play
 from utils import convert_string_to_grid
 
 IA_TO_LAUNCH = ''
+DEPTH_MIN_MAX = 0
 
 class RequestProcessingError(Exception):
     def __init__(self, status, detail):
@@ -62,7 +63,7 @@ class AIHTTPRequestHandler(BaseHTTPRequestHandler):
             if IA_TO_LAUNCH == "random":
                 return random_ai_play(board)
             else:
-                play_move(board)
+                return play_move(board, DEPTH_MIN_MAX)
 
 def main():
     parser = argparse.ArgumentParser(description="Connect 4 AI API")
@@ -71,11 +72,14 @@ def main():
                         choices=['random', 'minmax'],
                          default='minmax'
                          )
+    parser.add_argument('--depth', '-d', type=int, default=4)
 
     args = parser.parse_args()
 
-    print(args.level)
     global IA_TO_LAUNCH
+    global DEPTH_MIN_MAX
+
+    DEPTH_MIN_MAX = args.depth
     IA_TO_LAUNCH = args.level
 
     # app_logger = LogMgr.setup(args.verbose)
