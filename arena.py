@@ -121,7 +121,7 @@ def play_game(starting_player="our"):
         has_won = utils.has_player_won(grid, "2")
         logging.debug(has_won)
         if has_won:
-            add_stat(starting_player, str(i), starting_player)
+            add_stat(second_player, str(i), starting_player)
             return
         is_over = utils.is_game_over(grid)
         if is_over: 
@@ -184,7 +184,7 @@ def print_stats(data):
         logging.info("Game n°" + str(game_nb))
         logging.info("Winner: " + str(data_point["winner"]))
         logging.info("Depth: " + str(data_point["depth"]))
-        logging.info("Staring Player: " + str(data_point["starting_player"]))
+        logging.info("Starting Player: " + str(data_point["starting_player"]))
         logging.info("Enemy AI Level: " + str(data_point["enemy_ai_level"]))
         logging.info("")
         game_nb += 1
