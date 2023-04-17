@@ -26,8 +26,15 @@ enemyAdvanced:
 arena:
 	python3 arena.py --player1=$(PLAYER1) --player2 $(PLAYER2)
 
+arena-reversed:
+	python3 arena.py --player1=$(PLAYER2) --player2 $(PLAYER1)
+
 # run:
 # 	make start_servers & make arena
 
 run:
 	make arena
+
+
+run2:
+	make arena-reversed
