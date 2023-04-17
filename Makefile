@@ -5,29 +5,29 @@ PLAYER2_PORT=3003
 PLAYER2=localhost:$(PLAYER2_PORT)
 
 ourMinMax:
-	python3 api.py -p $(PLAYER1_PORT) -l minmax
+	python3.11 api.py -p $(PLAYER1_PORT) -l minmax
 
 ourMinMax2:
-	python3 api.py -p $(PLAYER2_PORT) -l minmax
+	python3.11 api.py -p $(PLAYER2_PORT) -l minmax
 
 ourRandom:
-	python3 api.py -p $(PLAYER2_PORT) -l random
+	python3.11 api.py -p $(PLAYER2_PORT) -l random
 
 enemyMedium:
-	cd ./cp4-ai/cp4_ai/ && python3 main.py -p $(PLAYER2_PORT) -l medium
+	cd ./cp4-ai/cp4_ai/ && python3.11 main.py -p $(PLAYER2_PORT) -l medium
 
 enemyAdvanced:
-	cd ./cp4-ai/cp4_ai/ && python3 main.py -p $(PLAYER2_PORT) -l advanced
+	cd ./cp4-ai/cp4_ai/ && python3.11 main.py -p $(PLAYER2_PORT) -l advanced
 
 
 
 
 
 arena:
-	python3 arena.py --player1=$(PLAYER1) --player2 $(PLAYER2)
+	python3.11 arena.py --player1=$(PLAYER1) --player2 $(PLAYER2)
 
 arena-reversed:
-	python3 arena.py --player1=$(PLAYER2) --player2 $(PLAYER1)
+	python3.11 arena.py --player1=$(PLAYER2) --player2 $(PLAYER1)
 
 # run:
 # 	make start_servers & make arena
