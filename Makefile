@@ -26,8 +26,11 @@ enemyExpert:
 arena:
 	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI)
 
+arenastats:
+	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI) --enemylevel=Random
+
 arenasolver:
-	python3.11 arena.py --our=$(OUR_AI) --enemy=solver
+	python3.11 arena.py --our=$(OUR_AI) --enemy=solver --enemylevel=solver
 
 arenalogs:
 	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI) --loglevel=debug

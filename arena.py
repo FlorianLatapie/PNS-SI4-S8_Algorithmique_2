@@ -14,27 +14,40 @@ __GAMES_PLAYED = 0
 __OUR_AI_WINS = 0
 __ENEMY_AI_WINS = 0
 __DRAWS = 0
-__DEPTHS = [] 
+__OUR_LOST_DEPTH = 0
+__OUR_WIN_DEPTH = 0
 
+__ENEMY_AI_LEVEL="none"
+
+__DATA=[]
 
 def toggle_grid(grid: str):
     return grid.replace("1", "a").replace("2", "1").replace("a", "2")
 
-def add_stat(winner: str, depth: str):
+def add_stat(winner: str, depth: str, starting: str):
     global __OUR_AI_WINS
     global __ENEMY_AI_WINS
-    global __DEPTHS
+    global __OUR_LOST_DEPTH
+    global __OUR_WIN_DEPTH
     global __GAMES_PLAYED
     global __DRAWS
+    global __ENEMY_AI_LEVEL
     __GAMES_PLAYED += 1
-    logging.info("winner " + winner)
+    __DATA.append({
+        "winner": winner + " AI",
+        "depth": depth,
+        "starting_player": starting + " AI",
+        "enemy_ai_level": __ENEMY_AI_LEVEL
+    })
+    logging.debug("winner " + winner)
     if winner == "our":
         __OUR_AI_WINS += 1
+        __OUR_WIN_DEPTH = depth
     if winner == "enemy":
         __ENEMY_AI_WINS += 1
+        __OUR_LOST_DEPTH = depth
     if winner == "draw":
         __DRAWS +=1
-    __DEPTHS.append(depth)
 
 def player_plays(player_name: str, grid: str) -> str:
     global __POS_PLAYED
@@ -59,6 +72,7 @@ def player_plays(player_name: str, grid: str) -> str:
                         " ",
                         res.json()
                         )
+
 def solver_plays(grid:str):
     global __POS_PLAYED
     url = "https://connect4.gamesolver.org/solve?pos=" + __POS_PLAYED;
@@ -94,11 +108,11 @@ def play_game(starting_player="our"):
         has_won = utils.has_player_won(grid, "1")
         logging.debug(has_won)
         if has_won:
-            add_stat(starting_player, str(i))
+            add_stat(starting_player, str(i), starting_player)
             return
         is_over = utils.is_game_over(grid)
         if is_over: 
-            add_stat("draw", str(i))
+            add_stat("draw", str(i), starting_player)
             return
 
         i += 1
@@ -107,11 +121,11 @@ def play_game(starting_player="our"):
         has_won = utils.has_player_won(grid, "2")
         logging.debug(has_won)
         if has_won:
-            add_stat(second_player, str(i))
+            add_stat(starting_player, str(i), starting_player)
             return
         is_over = utils.is_game_over(grid)
         if is_over: 
-            add_stat("draw", str(i))
+            add_stat("draw", str(i), starting_player)
             return
 
 
@@ -120,11 +134,14 @@ def main():
     parser.add_argument('--our')
     parser.add_argument('--enemy')
     parser.add_argument('--loglevel')
+    parser.add_argument('--enemylevel')
     args = parser.parse_args()
     global __ENEMY_AI_URL
     global __OUR_AI_URL
+    global __ENEMY_AI_LEVEL
     __ENEMY_AI_URL = "http://" + args.enemy
     __OUR_AI_URL = "http://" + args.our
+    __ENEMY_AI_LEVEL = args.enemylevel
     logging.disable = False
     loglevel = logging.INFO
     if args.loglevel == "debug":
@@ -141,6 +158,7 @@ def main():
     global __ENEMY_AI_WINS
     global __DEPTHS
     global __DRAWS
+    global __DATA
     
     starting_player = "our"
     while(__GAMES_PLAYED < __GAMES_TO_PLAY):
@@ -152,13 +170,24 @@ def main():
         if starting_player == "our": starting_player = "enemy"
         else: starting_player = "our"
 
-        logging.info(__GAMES_PLAYED)
+        logging.debug("games played " + str(__GAMES_PLAYED))
 
-    logging.info("Games played: " + str(__GAMES_PLAYED))
-    logging.info("Our AI wins: " + str(__OUR_AI_WINS))
-    logging.info("Enemy AI wins: " + str(__ENEMY_AI_WINS))
-    logging.info("Draws: "+ str(__DRAWS))
+    print_stats(__DATA)
+    # logging.info("Games played: " + str(__GAMES_PLAYED))
+    # logging.info("Our AI wins: " + str(__OUR_AI_WINS))
+    # logging.info("Enemy AI wins: " + str(__ENEMY_AI_WINS))
+    # logging.info("Draws: "+ str(__DRAWS))
 
+def print_stats(data):
+    game_nb = 1
+    for data_point in data:
+        logging.info("Game n°" + str(game_nb))
+        logging.info("Winner: " + str(data_point["winner"]))
+        logging.info("Depth: " + str(data_point["depth"]))
+        logging.info("Staring Player: " + str(data_point["starting_player"]))
+        logging.info("Enemy AI Level: " + str(data_point["enemy_ai_level"]))
+        logging.info("")
+        game_nb += 1
 
 def play_against_solver(starting_player="our"):
     global __POS_PLAYED
@@ -176,11 +205,11 @@ def play_against_solver(starting_player="our"):
         has_won = utils.has_player_won(grid, "1")
         logging.debug(has_won)
         if has_won:
-            add_stat(starting_player, str(i))
+            add_stat(starting_player, str(i), starting_player)
             return
         is_over = utils.is_game_over(grid)
         if is_over: 
-            add_stat("draw", str(i))
+            add_stat("draw", str(i), starting_player)
             return
 
         i += 1
@@ -190,11 +219,11 @@ def play_against_solver(starting_player="our"):
         has_won = utils.has_player_won(grid, "2")
         logging.debug(has_won)
         if has_won:
-            add_stat(second_player, str(i))
+            add_stat(second_player, str(i), starting_player)
             return
         is_over = utils.is_game_over(grid)
         if is_over: 
-            add_stat("draw", str(i))
+            add_stat("draw", str(i), starting_player)
             return
 
 
