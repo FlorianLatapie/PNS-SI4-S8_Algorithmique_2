@@ -1,40 +1,37 @@
-PLAYER1_PORT=3001
-PLAYER1=localhost:$(PLAYER1_PORT)
+OUR_AI_PORT=3001
+OUR_AI=localhost:$(OUR_AI_PORT)
 
-PLAYER2_PORT=3003
-PLAYER2=localhost:$(PLAYER2_PORT)
+ENEMY_AI_PORT=3003
+ENEMY_AI=localhost:$(ENEMY_AI_PORT)
 
 ourMinMax:
-	python3.11 api.py -p $(PLAYER1_PORT) -l minmax
+	python3.11 api.py -p $(OUR_AI_PORT) -l minmax
 
 ourMinMax2:
-	python3.11 api.py -p $(PLAYER2_PORT) -l minmax
+	python3.11 api.py -p $(ENEMY_AI_PORT) -l minmax
 
 ourRandom:
-	python3.11 api.py -p $(PLAYER2_PORT) -l random
+	python3.11 api.py -p $(ENEMY_AI_PORT) -l random
 
 enemyMedium:
-	cd ./cp4-ai/cp4_ai/ && python3.11 main.py -p $(PLAYER2_PORT) -l medium
+	cd ./cp4-ai/cp4_ai/ && python3.11 main.py -p $(ENEMY_AI_PORT) -l medium
 
 enemyAdvanced:
-	cd ./cp4-ai/cp4_ai/ && python3.11 main.py -p $(PLAYER2_PORT) -l advanced
+	cd ./cp4-ai/cp4_ai/ && python3.11 main.py -p $(ENEMY_AI_PORT) -l advanced
 
-
-
+enemyExpert:
+	cd ./cp4-ai/cp4_ai/ && python3 main.py -p $(ENEMY_AI_PORT) -l expert
 
 
 arena:
-	python3.11 arena.py --player1=$(PLAYER1) --player2 $(PLAYER2)
+	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI)
 
-arena-reversed:
-	python3.11 arena.py --player1=$(PLAYER2) --player2 $(PLAYER1)
+arenasolver:
+	python3.11 arena.py --our=$(OUR_AI) --enemy=solver
 
-# run:
-# 	make start_servers & make arena
+arenalogs:
+	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI) --loglevel=debug
 
 run:
 	make arena
 
-
-run2:
-	make arena-reversed

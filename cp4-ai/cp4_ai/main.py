@@ -4,7 +4,7 @@ from urllib.parse import urlparse, parse_qs
 import json
 
 from log import LogMgr
-from strategy import AbstractStrategy, DumbStrategy, BasicStrategy, MediumStrategy, AdvancedStrategy
+from strategy import AbstractStrategy, DumbStrategy, BasicStrategy, MediumStrategy, AdvancedStrategy, ExpertStrategy
 from models import Board
 
 COLUMNS_COUNT = 7
@@ -72,7 +72,8 @@ STRATEGIES = {
     'dumb': (DumbStrategy, None),
     'basic': BasicStrategy,
     'medium': MediumStrategy,
-    'advanced': AdvancedStrategy
+    'advanced': AdvancedStrategy,
+    'expert': ExpertStrategy
 }
 # add shortened version of strategy names
 _strategy_keys = list(STRATEGIES.keys())[:]
@@ -85,7 +86,7 @@ def main():
     parser.add_argument('--port', '-p', type=int, default=3150)
     parser.add_argument('--verbose', '-v', action='store_true')
     parser.add_argument('--level', '-l',
-                        choices=['dumb', 'd', 'basic', 'b', 'medium', 'm', 'advanced', 'a'],
+                        choices=['dumb', 'd', 'basic', 'b', 'medium', 'm', 'advanced', 'a', 'expert', 'e'],
                         default='advanced'
                         )
 

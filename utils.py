@@ -1,5 +1,6 @@
 import re
 import evaluate
+import logging
 
 NUM_ROWS = 6
 NUM_COLUMNS = 7
@@ -67,7 +68,7 @@ def print_grid(grid_str: str):
     grid = convert_string_to_grid(grid_str)
     length = len(grid)
     for i in range(length-1, -1, -1):
-        print(grid[i])
+        logging.debug(grid[i])
 
 def has_player_won(grid_str: str, player_symbol: str):
     grid = convert_string_to_grid(grid_str)
