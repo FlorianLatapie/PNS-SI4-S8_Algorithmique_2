@@ -5,7 +5,7 @@ import argparse
 __PLAYER1_URL = ""
 __PLAYER2_URL = ""
 
-__GAMES_TO_PLAY = 10
+__GAMES_TO_PLAY = 3
 __GAMES_PLAYED = 0
 __PLAYER1_WINS = 0
 __PLAYER2_WINS = 0
@@ -23,6 +23,7 @@ def add_stat(winner: str, depth: str):
     global __GAMES_PLAYED
     global __DRAWS
     __GAMES_PLAYED += 1
+    print("winner", winner)
     if winner == "1":
         __PLAYER1_WINS += 1
     if winner == "2":
@@ -36,12 +37,11 @@ def player_plays(player_num: int, grid: str) -> str:
     if player_num == 2: url = __PLAYER2_URL
     url += "/move?b=" + grid
     res = requests.get(url)
-    print("responded", res)
     if res.status_code == 200:
         move = res.json()  # TODO: check move field
         move_to_0_index = move - 1
-        updated_grid = utils.add_move_to_grid(grid, move_to_0_index, str(player_num))
-        print("Player ", player_num, " played", move)
+        print("Player ", player_num, " played", move_to_0_index)
+        updated_grid = utils.add_move_to_grid(grid, move_to_0_index, str(2))
         return updated_grid
     else:
         raise Exception("Error: ",
@@ -58,8 +58,11 @@ def play_game():
     i = 1
     while True:
         grid = toggle_grid(grid)
-        grid = player_plays(2, grid)
-        has_won = utils.has_player_won(grid, "2")
+        grid = player_plays(1, grid)
+        grid = toggle_grid(grid)
+        utils.print_grid(grid)
+        has_won = utils.has_player_won(grid, "1")
+        print(has_won)
         if has_won:
             add_stat("1", str(i))
             return
@@ -69,9 +72,10 @@ def play_game():
             return
 
         i += 1
-        grid = toggle_grid(grid)
         grid = player_plays(2, grid)
+        utils.print_grid(grid)
         has_won = utils.has_player_won(grid, "2")
+        print(has_won)
         if has_won:
             add_stat("2", str(i))
             return

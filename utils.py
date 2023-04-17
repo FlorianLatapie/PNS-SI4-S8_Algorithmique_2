@@ -63,6 +63,12 @@ def add_move_to_grid(grid: str, move: int, player_symbol: str) -> str:
             return convert_grid_to_string(grid_array)
     raise Exception("Move not valid")
 
+def print_grid(grid_str: str):
+    grid = convert_string_to_grid(grid_str)
+    length = len(grid)
+    for i in range(length-1, -1, -1):
+        print(grid[i])
+
 def has_player_won(grid_str: str, player_symbol: str):
     grid = convert_string_to_grid(grid_str)
     board45 = evaluate.rotate45(grid)
