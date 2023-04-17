@@ -68,7 +68,7 @@ def solver_plays(player_num: int, grid:str):
         scores = data["score"]
         nb_scores = len(scores)
         for i in range(nb_scores):
-            if scores[i] > best_move_score:
+            if scores[i] > best_move_score and scores[i] != 100:
                 best_move_score = scores[i]
                 best_move = i +1
     __POS_PLAYED += str(best_move)
