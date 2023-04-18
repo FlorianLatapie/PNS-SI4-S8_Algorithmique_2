@@ -29,7 +29,7 @@ __DATA=[]
 def toggle_grid(grid: str):
     return grid.replace("1", "a").replace("2", "1").replace("a", "2")
 
-def add_stat(winner: str, depth: str, starting: str):
+def add_stat(winner: str, turn: str, starting: str):
     global __OUR_AI_WINS
     global __ENEMY_AI_WINS
     global __OUR_LOST_DEPTH
@@ -43,7 +43,7 @@ def add_stat(winner: str, depth: str, starting: str):
     enemy_exec_mean = statistics.mean(__ENEMY_EXEC_TIME) * 1000
     __DATA.append({
         "winner": winner + " AI",
-        "depth": depth,
+        "turn": turn,
         "starting_player": starting + " AI",
         "enemy_ai_level": __ENEMY_AI_LEVEL,
         "our_mean_exec_time": our_exec_mean,
@@ -53,10 +53,10 @@ def add_stat(winner: str, depth: str, starting: str):
     logging.debug("winner " + winner)
     if winner == "our":
         __OUR_AI_WINS += 1
-        __OUR_WIN_DEPTH = depth
+        __OUR_WIN_DEPTH = turn
     if winner == "enemy":
         __ENEMY_AI_WINS += 1
-        __OUR_LOST_DEPTH = depth
+        __OUR_LOST_DEPTH = turn
     if winner == "draw":
         __DRAWS +=1
 
@@ -124,6 +124,7 @@ def play_game(starting_player="our"):
         grid = player_plays(starting_player, grid)
         end_time = time()
         exec_duration = end_time - start_time
+        i += 1
         add_time(exec_duration, starting_player)
         grid = toggle_grid(grid)
         utils.print_grid(grid)
@@ -137,11 +138,11 @@ def play_game(starting_player="our"):
             add_stat("draw", str(i), starting_player)
             return
 
-        i += 1
         start_time = time()
         grid = player_plays(second_player, grid)
         end_time = time()
         exec_duration = end_time - start_time
+        i += 1
         add_time(exec_duration, second_player)
         utils.print_grid(grid)
         has_won = utils.has_player_won(grid, "2")
@@ -209,7 +210,7 @@ def print_stats(data):
     for data_point in data:
         logging.info("Game n°" + str(game_nb))
         logging.info("Winner: " + str(data_point["winner"]))
-        logging.info("Depth: " + str(data_point["depth"]))
+        logging.info("Turns played: " + str(data_point["depth"]))
         logging.info("Starting Player: " + str(data_point["starting_player"]))
         logging.info("Enemy AI Level: " + str(data_point["enemy_ai_level"]))
         logging.info("Our mean exec time (ms): " + str(data_point["our_mean_exec_time"]))
@@ -232,6 +233,7 @@ def play_against_solver(starting_player="our"):
         else : grid = solver_plays(grid)
         end_time = time()
         exec_duration = end_time - start_time
+        i += 1
         add_time(exec_duration, starting_player)
         grid = toggle_grid(grid)
         utils.print_grid(grid)
@@ -245,12 +247,12 @@ def play_against_solver(starting_player="our"):
             add_stat("draw", str(i), starting_player)
             return
 
-        i += 1
         start_time = time()
         if second_player == "our": grid = player_plays(second_player, grid)
         else : grid = solver_plays(grid)
         end_time = time()
         exec_duration = end_time - start_time
+        i += 1
         add_time(exec_duration, second_player)
         utils.print_grid(grid)
         has_won = utils.has_player_won(grid, "2")
