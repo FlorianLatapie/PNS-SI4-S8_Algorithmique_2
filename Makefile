@@ -4,10 +4,22 @@ OUR_AI=localhost:$(OUR_AI_PORT)
 ENEMY_AI_PORT=3003
 ENEMY_AI=localhost:$(ENEMY_AI_PORT)
 
-ourMinMax:
+ourMinmax:
 	python3.11 api.py -p $(OUR_AI_PORT) -l minmax
 
-ourMinMax2:
+ourMinmaxD2:
+	python3.11 api.py -p $(OUR_AI_PORT) -l minmax -d 2
+
+ourMinmaxD4:
+	python3.11 api.py -p $(OUR_AI_PORT) -l minmax -d 4
+
+ourMinmaxD6:
+	python3.11 api.py -p $(OUR_AI_PORT) -l minmax -d 6
+
+ourMinmaxD8:
+	python3.11 api.py -p $(OUR_AI_PORT) -l minmax -d 8
+
+ourMinmax2:
 	python3.11 api.py -p $(ENEMY_AI_PORT) -l minmax
 
 ourRandom:
@@ -27,7 +39,7 @@ arena:
 	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI)
 
 arenastats:
-	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI) --enemylevel=Advanced
+	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI) --enemylevel=Medium
 
 arenasolver:
 	python3.11 arena.py --our=$(OUR_AI) --enemy=solver --enemylevel=Solver

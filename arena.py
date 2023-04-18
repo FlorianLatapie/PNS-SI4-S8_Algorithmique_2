@@ -39,6 +39,7 @@ def add_stat(winner: str, depth: str, starting: str):
     global __ENEMY_AI_LEVEL
     __GAMES_PLAYED += 1
     our_exec_mean = statistics.mean(__OUR_EXEC_TIME) * 1000
+    our_exec_max = max(__OUR_EXEC_TIME) * 1000
     enemy_exec_mean = statistics.mean(__ENEMY_EXEC_TIME) * 1000
     __DATA.append({
         "winner": winner + " AI",
@@ -46,6 +47,7 @@ def add_stat(winner: str, depth: str, starting: str):
         "starting_player": starting + " AI",
         "enemy_ai_level": __ENEMY_AI_LEVEL,
         "our_mean_exec_time": our_exec_mean,
+        "our_max_exec_time": our_exec_max,
         "enemy_mean_exec_time": enemy_exec_mean
     })
     logging.debug("winner " + winner)
@@ -211,6 +213,7 @@ def print_stats(data):
         logging.info("Starting Player: " + str(data_point["starting_player"]))
         logging.info("Enemy AI Level: " + str(data_point["enemy_ai_level"]))
         logging.info("Our mean exec time (ms): " + str(data_point["our_mean_exec_time"]))
+        logging.info("Our max exec time (ms): " + str(data_point["our_max_exec_time"]))
         logging.info("Enemy mean exec time (ms): " + str(data_point["enemy_mean_exec_time"]))
         logging.info("")
         game_nb += 1

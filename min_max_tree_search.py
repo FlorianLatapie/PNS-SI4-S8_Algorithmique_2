@@ -37,7 +37,7 @@ def min_max_init(board, depth):
             break
 
     # print("Best score: " + str(best_score) + " Best move: " + str(best_move))
-    print("Best move: " + str(best_move))
+    # print("Best move: " + str(best_move))
     return best_move
 
 
@@ -47,7 +47,7 @@ def min_max(board, depth, is_maximizing_player, alpha, beta):
     else:
         if is_maximizing_player:
             best_score = -math.inf
-            print(possible_moves(board))
+            # print(possible_moves(board))
             for move in possible_moves(board):
                 board_copy = array_copy(board)
                 board_copy[move[1]] = replace_str_index(board_copy[move[1]], move[0], MACHIN_PLAYER_REPRESENTATION)
@@ -59,7 +59,7 @@ def min_max(board, depth, is_maximizing_player, alpha, beta):
             return best_score
         else:
             best_score = math.inf
-            print(possible_moves(board))
+            # print(possible_moves(board))
             for move in possible_moves(board):
                 board_copy = array_copy(board)
                 board_copy[move[1]] = replace_str_index(board_copy[move[1]], move[0], HUMAN_PLAYER_REPRESENTATION)
