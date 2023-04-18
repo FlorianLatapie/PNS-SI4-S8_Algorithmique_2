@@ -39,7 +39,7 @@ arena:
 	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI)
 
 arenastats:
-	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI) --enemylevel=Medium
+	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI) --enemylevel=Advanced
 
 arenasolver:
 	python3.11 arena.py --our=$(OUR_AI) --enemy=solver --enemylevel=Solver
