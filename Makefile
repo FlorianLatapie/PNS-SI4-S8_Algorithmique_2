@@ -19,10 +19,10 @@ ourMinmaxD6:
 ourMinmaxD8:
 	python3.11 api.py -p $(OUR_AI_PORT) -l minmax -d 8
 
-ourMinmax2:
+enemyOurMinmax:
 	python3.11 api.py -p $(ENEMY_AI_PORT) -l minmax
 
-ourRandom:
+enemyOurRandom:
 	python3.11 api.py -p $(ENEMY_AI_PORT) -l random
 
 enemyMedium:
@@ -38,11 +38,8 @@ enemyExpert:
 arena:
 	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI)
 
-arenastats:
-	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI) --enemylevel=Advanced
-
 arenasolver:
-	python3.11 arena.py --our=$(OUR_AI) --enemy=solver --enemylevel=Solver
+	python3.11 arena.py --our=$(OUR_AI) --enemy=solver
 
 arenalogs:
 	python3.11 arena.py --our=$(OUR_AI) --enemy=$(ENEMY_AI) --loglevel=debug

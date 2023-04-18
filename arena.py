@@ -200,10 +200,6 @@ def main():
         logging.debug("games played " + str(__GAMES_PLAYED))
 
     print_stats(__DATA)
-    # logging.info("Games played: " + str(__GAMES_PLAYED))
-    # logging.info("Our AI wins: " + str(__OUR_AI_WINS))
-    # logging.info("Enemy AI wins: " + str(__ENEMY_AI_WINS))
-    # logging.info("Draws: "+ str(__DRAWS))
 
 def print_stats(data):
     game_nb = 1
@@ -212,7 +208,7 @@ def print_stats(data):
         logging.info("Winner: " + str(data_point["winner"]))
         logging.info("Turns played: " + str(data_point["depth"]))
         logging.info("Starting Player: " + str(data_point["starting_player"]))
-        logging.info("Enemy AI Level: " + str(data_point["enemy_ai_level"]))
+        # logging.info("Enemy AI Level: " + str(data_point["enemy_ai_level"]))
         logging.info("Our mean exec time (ms): " + str(data_point["our_mean_exec_time"]))
         logging.info("Our max exec time (ms): " + str(data_point["our_max_exec_time"]))
         logging.info("Enemy mean exec time (ms): " + str(data_point["enemy_mean_exec_time"]))
