@@ -45,7 +45,7 @@ def find_winning_moves_on_a_line(line_of_connect4: str):
             if line_of_connect4.find("1111") != -1:
                 score -= 100000
             if index != -1:
-                score -= 1 ** (i + 1)
+                score -= 2 ** (i + 1)
 
     for i in range(len(known_winning_moves_machine2)):
         for j in range(len(known_winning_moves_machine2[i])):
